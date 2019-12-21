@@ -1,29 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
+import { ClienteService } from './cliente.service';
 
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html'
 })
-export class ClientesComponent  {
+export class ClientesComponent  implements OnInit{
 
-  clientes:Cliente[]=[
-    {id:1,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:2,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:3,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:4,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:5,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:6,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:7,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:8,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:9,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:10,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:11,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-    {id:12,nombre:'david',apellido:'saldivar',email:'david@cliente.com',createAt:'2018-12-11'},
-  ];
+  clientes:Cliente[];
 
 
-  constructor() { }
+  constructor(private clienteService:ClienteService) { }
 
+  ngOnInit(){
+    this.clientes = this.clienteService.getClientes();
+  }
 
 }
