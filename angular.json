@@ -25,12 +25,13 @@
             ],
             "styles": [
               "src/styles.css",
-              "css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "js/jquery-3.4.1.slim.min.js",
-              "js/popper.min.js",
-              "js/bootstrap.min.js"]
+              "node_modules/jquery/dist/jquery.slim.min.js",
+              "node_modules/popper.js/dist/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
