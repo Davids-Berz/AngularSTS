@@ -10,13 +10,14 @@ import { map } from 'rxjs/operators';
 })
 export class ClienteService {
 
-  private urlEndpoint : string ='http://localhost:8080/api/clientes';
+  //!EndPoint findAll
+  private urlEndpoint : string ='http://localhost:8080/clientes/';
 
   constructor(private http: HttpClient) { }
 
   getClientes(): Observable<Cliente[]>{
     //return of(CLIENTES);
-    //return this.http.get<Cliente[]>(this.urlEndpoint);
+    //?return this.http.get<Cliente[]>(this.urlEndpoint);
     return this.http.get(this.urlEndpoint).pipe(
       map( response => response as Cliente[])
     )
