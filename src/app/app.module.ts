@@ -9,6 +9,8 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteService} from './clientes/cliente.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
+import { FormComponent } from './clientes/form.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes',pathMatch:'full' },
@@ -18,7 +20,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  declarations: [FormComponent]
 })
 export class AppRoutingModule {}
 
@@ -34,6 +37,7 @@ export class AppRoutingModule {}
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [ClienteService],

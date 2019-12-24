@@ -15,6 +15,7 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
+  //Metodo FindAll
   getClientes(): Observable<Cliente[]>{
     //return of(CLIENTES);
     //?return this.http.get<Cliente[]>(this.urlEndpoint);
