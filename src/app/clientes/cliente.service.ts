@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class ClienteService {
 
-  //!EndPoint findAll
+  //EndPoint findAll
   private urlEndpoint : string ='http://localhost:8080/clientes/';
 
   constructor(private http: HttpClient) { }
