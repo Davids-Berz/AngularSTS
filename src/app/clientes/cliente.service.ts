@@ -23,7 +23,7 @@ export class ClienteService {
 
   //?Crud - Create  
   create(cliente:Cliente) : Observable<Cliente>{
-    return this.http.post<Cliente>(this.urlEndpoint, cliente, {headers:this.httpHeaders} )
+    return this.http.post<Cliente>(`${this.urlEndpoint}/`, cliente, {headers:this.httpHeaders} )
   }
 
   //?Retorna al Cliente por el id para trabajar con update
