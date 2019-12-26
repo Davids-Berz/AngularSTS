@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CLIENTES} from './clientes.json';
 import { Cliente } from './cliente.js';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
@@ -9,7 +8,7 @@ import { map } from 'rxjs/operators';
 export class ClienteService {
 
   //EndPoint
-  private urlEndpoint : string ='http://localhost:8080/clientes/'
+  private urlEndpoint : string ='http://localhost:8080/clientes'
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'})
 
   constructor(private http: HttpClient) { }
@@ -26,4 +25,20 @@ export class ClienteService {
   create(cliente:Cliente) : Observable<Cliente>{
     return this.http.post<Cliente>(this.urlEndpoint, cliente, {headers:this.httpHeaders} )
   }
+
+  //?Retorna al Cliente por el id para trabajar con update
+  getCliente(id:any): Observable<Cliente>{
+    return this.http.get<Cliente>(`${this.urlEndpoint}/${id}`)
+  }
+
+  //?Crud - Update
+  update(cliente:Cliente): Observable<Cliente>{
+    return this.http.put<Cliente>(`${this.urlEndpoint}/${cliente.id}`,cliente, {headers:this.httpHeaders})
+  }
+
+  //?Crud - Delete
+  delete(id:number):Observable<Cliente>{
+    return this.http.delete<Cliente>(`${this.urlEndpoint}/${id}`, {headers:this.httpHeaders})
+  }
+
 }
