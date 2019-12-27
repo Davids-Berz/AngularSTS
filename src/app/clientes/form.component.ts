@@ -36,9 +36,9 @@ export class FormComponent implements OnInit {
   //?Crud - Create
   public create(): void {
     this.clienteService.create(this.cliente).subscribe(
-      cliente => {
+      json => {
         this.router.navigate(['/clientes'])
-        swal.fire('Nuevo Cliente', `Cliente ${cliente.nombre} creado con éxito!`,'success')
+        swal.fire('Nuevo Cliente', `${json.mensaje}: ${json.cliente.nombre}`,'success')
       }
     )  
   }
@@ -46,9 +46,9 @@ export class FormComponent implements OnInit {
   //?Crud - Update
   update():void{
     this.clienteService.update(this.cliente)
-    .subscribe( cliente =>{
-      this.router.navigate(['/clientes'])
-      swal.fire('Cliente Actualizado',`cliente ${cliente.nombre} actualizado con éxito!`,'success')
+    .subscribe( json =>{
+      this.router.navigate(['/clientes']);
+      swal.fire('Cliente Actualizado',`${json.mensaje}: ${json.cliente.nombre}`,'success');
     })
   }
 
