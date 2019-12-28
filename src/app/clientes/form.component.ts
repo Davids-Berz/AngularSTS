@@ -10,8 +10,9 @@ import swal from 'sweetalert2'
 })
 export class FormComponent implements OnInit {
 
-  private cliente: Cliente = new Cliente()
-  private titulo: string = 'Crear Cliente'
+  private cliente: Cliente = new Cliente();
+  private titulo: string = 'Crear Cliente';
+  private errors: string[];
 
   constructor(private clienteService: ClienteService,
     private router: Router, 
@@ -39,8 +40,13 @@ export class FormComponent implements OnInit {
       json => {
         this.router.navigate(['/clientes'])
         swal.fire('Nuevo Cliente', `${json.mensaje}: ${json.cliente.nombre}`,'success')
-      }
-    )  
+      },
+      e=>{
+        this.errors = e.error.errors as string[];
+        console.error('Codigo del error desde el backend ' + e.status)
+        console.error(e.error.errors);
+
+      })  
   }
 
   //?Crud - Update
@@ -49,6 +55,12 @@ export class FormComponent implements OnInit {
     .subscribe( json =>{
       this.router.navigate(['/clientes']);
       swal.fire('Cliente Actualizado',`${json.mensaje}: ${json.cliente.nombre}`,'success');
+    },
+    e=>{
+      this.errors = e.error.errors as string[];
+      console.error('Codigo del error desde el backend ' + e.status)
+      console.error(e.error.errors);
+
     })
   }
 
