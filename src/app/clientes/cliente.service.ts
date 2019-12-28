@@ -36,8 +36,8 @@ export class ClienteService {
 
   //?Retorna al Cliente por el id para trabajar con update
   getCliente(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.urlEndpoint}/${id}`).pipe(
-      catchError(e => {
+    return this.http.get<Cliente>(`${this.urlEndpoint}/${id}`)
+    .pipe(catchError(e => {
         this.router.navigate(['/clientes']);
         console.error(e.error.mensaje);
         swal.fire('Error al editar', e.error.mensaje, 'error');
