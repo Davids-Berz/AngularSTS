@@ -18,31 +18,27 @@ export class ClienteService {
     private router: Router) { }
 
   //?Crud - FindAll
-  getClientes(): Observable<Cliente[]> {
+  getClientes(page: number): Observable<any> {
     //return this.http.get<Cliente[]>(this.urlEndpoint);
-    return this.http.get(this.urlEndpoint).pipe(
-
-      tap(response =>{
+    return this.http.get(this.urlEndpoint + '/page/' + page).pipe(
+      tap((response: any) => {
         console.log('ClienteService: tap 1');
-
-        let clientes = response as Cliente[];
-        clientes.forEach(cliente =>{
+        (response.content as Cliente[]).forEach(cliente => {
           console.log(cliente.nombre);
         })
       }),
-      map(response => {
-        let clientes = response as Cliente[];
-
-        return clientes.map(cliente =>{
+      map((response: any) => {
+        (response.content as Cliente[]).map(cliente => {
           cliente.nombre = cliente.nombre.toUpperCase();
           //let datePipe = new DatePipe('es');
           //cliente.createAt = datePipe.transform(cliente.createAt,'EEEE dd/MMMM/yyyy');//formatDate(cliente.createAt,'dd-MM-yyyy','en-US');
           return cliente;
         })
+        return response;
       }),
-      tap(response =>{
+      tap(response => {
         console.log('ClienteService: tap 2');
-        response.forEach(cliente =>{
+        (response.content as Cliente[]).forEach(cliente => {
           console.log(cliente.nombre);
         })
       })
@@ -54,7 +50,7 @@ export class ClienteService {
     return this.http.post<any>(`${this.urlEndpoint}/`, cliente, { headers: this.httpHeaders })
       .pipe(catchError(e => {
 
-        if(e.status==400){
+        if (e.status == 400) {
           return throwError(e);
         }
 
@@ -67,20 +63,20 @@ export class ClienteService {
   //?Retorna al Cliente por el id para trabajar con update
   getCliente(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndpoint}/${id}`)
-    .pipe(catchError(e => {
+      .pipe(catchError(e => {
         this.router.navigate(['/clientes']);
         console.error(e.error.mensaje);
         swal.fire('Error al editar', e.error.mensaje, 'error');
         return throwError(e);
       })
-    )
+      )
   }
 
   //?Crud - Update
   update(cliente: Cliente): Observable<any> {
     return this.http.put<any>(`${this.urlEndpoint}/${cliente.id}`, cliente, { headers: this.httpHeaders })
       .pipe(catchError(e => {
-        if(e.status==400){
+        if (e.status == 400) {
           return throwError(e);
         }
         console.error(e.error.mensaje);
