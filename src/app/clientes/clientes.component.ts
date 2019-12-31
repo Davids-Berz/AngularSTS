@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import Swal from 'sweetalert2';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clientes',
@@ -15,9 +16,12 @@ export class ClientesComponent implements OnInit {
   constructor(private clienteService: ClienteService) { }
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe(
-      clientes => this.clientes = clientes
-    );
+    this.clienteService.getClientes()
+      .pipe(
+        tap(clientes => this.clientes = clientes)
+      )
+
+      .subscribe();
   }
 
   delete(cliente: Cliente): void {
@@ -41,7 +45,7 @@ export class ClientesComponent implements OnInit {
       if (result.value) {
         this.clienteService.delete(cliente.id)
           .subscribe(response => {
-          this.clientes = this.clientes.filter(cli => cli !== cliente)
+            this.clientes = this.clientes.filter(cli => cli !== cliente)
             swalWithBootstrapButtons.fire(
               'Cliente Eliminado!',
               `Cliente ${cliente.nombre} eliminado con éxito.`,
