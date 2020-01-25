@@ -16,7 +16,9 @@ import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es-MX';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 
 registerLocaleData(localeEs, 'es');
@@ -32,7 +34,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),
+    BrowserAnimationsModule
+  ],
   exports: [RouterModule],
   declarations: [FormComponent, PaginatorComponent]
 })
@@ -53,7 +57,10 @@ export class AppRoutingModule {}
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [ClienteService,{provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
